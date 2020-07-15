@@ -147,7 +147,7 @@ if [ -z "$(cat ~/.bashrc | grep -e 'source <(kubectl completion bash)')" ]; then
     echo "source <(kubectl completion bash)" >> ~/.bashrc
 
     # source <(kubectl completion zsh)
-    echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc
+    echo "source <(kubectl completion zsh)" >> ~/.zshrc
 fi
 
 # Give kubernetes some time to complete installation.
