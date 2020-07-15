@@ -84,7 +84,7 @@ sudo service nfs-kernel-server restart
 ###############################################################################
 echo "Installing Node JS ..."
 sudo apt-get install nodejs -y
-sudo apt-get install nodejs-dev node-gyp libssl1.0-dev -y  
+sudo apt-get install nodejs-dev node-gyp libssl1.0-dev -y
 echo "Installing Node Package Manager npm ..."
 sudo apt-get install npm -y
 
@@ -94,13 +94,16 @@ openssl genrsa -out certs/private.key 1024
 openssl rsa -in certs/private.key -pubout -out certs/public.key
 
 echo "Installing NodeJS packages fs, jsonwebtoken"
-echo '{}' >package.json 
+echo '{}' >package.json
 npm install fs
 npm install jsonwebtoken
 
 ###############################################################################
 ### Install Kubernetes
 ###############################################################################
+
+# Install Snapd
+sudo apt-get install -y snapd
 
 # TODO:
 # WARNING:  IPtables FORWARD policy is DROP. Consider enabling traffic forwarding with: sudo iptables -P FORWARD ACCEPT
@@ -165,4 +168,3 @@ helm repo update
 # Keycloak later
 
 sudo apt-get install jq -y
-
