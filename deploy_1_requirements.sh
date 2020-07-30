@@ -1,4 +1,3 @@
-
 #!/bin/bash
 set -xe
 
@@ -33,7 +32,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 # edge channel for the currently used distro (latest: disco)
 sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
 
@@ -49,7 +48,7 @@ sudo usermod -aG docker $(getent passwd "1000" | cut -d: -f1)
 sudo systemctl enable docker
 
 # Enable insecure registries for kubernetes
-sudo /usr/bin/tee "/etc/docker/daemon.json" > /dev/null <<EOF
+sudo /usr/bin/tee "/etc/docker/daemon.json" >/dev/null <<EOF
 {
     "insecure-registries" : ["localhost:32000"]
 }
@@ -70,7 +69,7 @@ sudo chown nobody:nogroup /export/k8s
 
 # backup the old exports file (when a backup exists, append it)
 sudo cat /etc/exports | sudo tee -a /etc/exports.bak
-sudo /usr/bin/tee "/etc/exports" > /dev/null <<EOF
+sudo /usr/bin/tee "/etc/exports" >/dev/null <<EOF
 /export/k8s   *(rw,sync,no_subtree_check,no_root_squash)
 /export/src  *(rw,sync,no_subtree_check,no_root_squash)
 /export       *(rw,fsid=0,no_subtree_check,sync)
@@ -141,13 +140,12 @@ fi
 sudo systemctl restart snap.microk8s.daemon-apiserver.service
 sudo microk8s.status --wait-ready
 
-
 if [ -z "$(cat ~/.bashrc | grep -e 'source <(kubectl completion bash)')" ]; then
     # source <(kubectl completion bash)
-    echo "source <(kubectl completion bash)" >> ~/.bashrc
+    echo "source <(kubectl completion bash)" >>~/.bashrc
 
     # source <(kubectl completion zsh)
-    echo "source <(kubectl completion zsh)" >> ~/.zshrc
+    echo "source <(kubectl completion zsh)" >>~/.zshrc
 fi
 
 # Give kubernetes some time to complete installation.
