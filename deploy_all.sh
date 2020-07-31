@@ -20,3 +20,6 @@ bash deploy_2_k8s_environment.sh
 
 # Deploy qliksense
 bash deploy_3_qliksense.sh
+
+# Activate license
+bash qlik-setlicense.sh
